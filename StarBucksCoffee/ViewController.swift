@@ -17,6 +17,10 @@ class ViewController: UIViewController {
     
     var coffeecup = ["cupChoco","cupGreen","cupGreen2","cupPink"]
     
+    var coffeePrices = ["   $ 6.99","   $ 4.26","   $ 8.67","   $ 3.55"]
+    
+    
+    
     @IBOutlet weak var logo: UIImageView!
     
     
@@ -108,12 +112,23 @@ extension ViewController: UICollectionViewDelegate,UICollectionViewDataSource{
         cell.coffeeView.layer.cornerRadius = 20
         cell.coffeeCupImg.image = UIImage(named: coffeecup[indexPath.row])
         cell.priceBtn.layer.cornerRadius = 20
+        cell.priceBtn.setTitle(coffeePrices[indexPath.row], for: .normal)
+
         
         cell.startAnimation()
         
         cell.priceBtn.clipsToBounds = true
         cell.coffeeView.clipsToBounds = true
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let fproduct = storyboard.instantiateViewController(withIdentifier: "MenuList") as? MenuList {
+                fproduct.modalPresentationStyle = .fullScreen
+                present(fproduct, animated: true, completion: nil)
+            }
     }
     
     
